@@ -79,7 +79,7 @@ interface TransitionBoxProps {
 
 const TransitionBox: FC<TransitionBoxProps> = ({
   as = 'div',
-  duration = 150,
+  duration = 300,
   ease = easeInOut,
   children,
   ...rest
@@ -108,8 +108,13 @@ const TransitionBox: FC<TransitionBoxProps> = ({
       animation.current = animate({
         from: invertedTransform,
         to: { x: 0, y: 0, scaleX: 1, scaleY: 1 },
-        duration: 300,
+        duration: duration,
         ease: easeInOut,
+        onPlay: () => {
+          if (ref.current) {
+            ref.current.style.willChange = 'transform';
+          }
+        },
         onUpdate: transform => {
           if (ref.current) {
             const { x, y, scaleX, scaleY } = transform;
@@ -118,6 +123,10 @@ const TransitionBox: FC<TransitionBoxProps> = ({
           }
         },
         onComplete: () => {
+          if (ref.current) {
+            ref.current.style.willChange = 'auto';
+          }
+
           animation.current = undefined;
         },
       });
@@ -129,6 +138,9 @@ const TransitionBox: FC<TransitionBoxProps> = ({
     as,
     {
       ...rest,
+      style: {
+        transformOrigin: 'top left',
+      },
       ref,
     },
     children
