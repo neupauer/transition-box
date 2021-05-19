@@ -1,8 +1,21 @@
 {
   "name": "@neupauer/transition-box",
-  "author": "Peter Neupauer",
+  "description": "",
+  "keywords": [
+    "transition-box",
+    "flip",
+    "animation"
+  ],
   "version": "0.1.0",
   "license": "MIT",
+  "author": {
+    "name": "Peter Neupauer",
+    "url": "https://neupauer.sk"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neupauer/transition-box.git"
+  },
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
