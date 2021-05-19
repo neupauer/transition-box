@@ -1,5 +1,15 @@
 import { animate, PlaybackControls, easeInOut, Easing } from 'popmotion';
-import { createElement, useRef, useLayoutEffect, FC, ElementType } from 'react';
+import {
+  createElement,
+  useRef,
+  useEffect,
+  useLayoutEffect,
+  FC,
+  ElementType,
+} from 'react';
+
+const useIsomorphicLayoutEffect =
+  typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
 interface Bounds {
   x: number;
@@ -89,7 +99,7 @@ const TransitionBox: FC<TransitionBoxProps> = ({
   const lastBounds = useRef<Bounds>();
   const lastTransform = useRef<Transform>({ x: 0, y: 0, scaleX: 1, scaleY: 1 });
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const bounds = removeTransformFromBounds(
       ref.current?.getBoundingClientRect() ?? emptyBounds,
       lastTransform.current
